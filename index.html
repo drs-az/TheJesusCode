@@ -124,29 +124,29 @@
     }
 
     .hero-cta {
-    display: flex;
-    flex-wrap: wrap;            /* allows wrapping */
-    justify-content: center;    /* centers both rows */
-    gap: 12px 20px;             /* top-bottom / left-right spacing */
-    margin-top: 24px;
-}
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        justify-items: center;
+        gap: 12px 16px;
+        margin-top: 24px;
+    }
 
-.hero-cta button {
-    flex: 1 1 calc(50% - 20px); /* 2 buttons per row */
-    max-width: 220px;           /* keeps them from getting too wide */
-    border: none;
-    cursor: pointer;
-    border-radius: 999px;
-    padding: 10px 18px;
-    font-size: 0.95rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;    /* centers text inside button */
-    gap: 8px;
-    transition: transform 0.15s ease,
-                box-shadow 0.15s ease,
-                background 0.15s ease;
-}
+    .hero-cta button {
+        width: 100%;
+        max-width: 240px;
+        border: none;
+        cursor: pointer;
+        border-radius: 999px;
+        padding: 10px 18px;
+        font-size: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: transform 0.15s ease,
+                    box-shadow 0.15s ease,
+                    background 0.15s ease;
+    }
 
     .btn-primary {
         background: var(--accent);
@@ -508,7 +508,6 @@
             <button class="btn-primary" onclick="document.getElementById('chapters').scrollIntoView({behavior:'smooth'})">
                 Browse Sections
             </button>
-<br><br>
             <button class="btn-primary" onclick="document.getElementById('podcast').scrollIntoView({behavior:'smooth'})">
                 Podcast
             </button>
