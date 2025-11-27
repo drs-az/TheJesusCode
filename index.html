@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Jesus Code – Living the Way of Christ in Daily Life</title>
+
+<style>
+    /* ---------- CSS VARIABLES FOR LIGHT/DARK ---------- */
+    :root {
+        --bg: #f9f9fb;
+        --bg-alt: #ffffff;
+        --text: #222222;
+        --text-muted: #666666;
+        --accent: #2f67d8;
+        --accent-soft: #e3ebff;
+        --border: #e2e2ee;
+        --card-shadow: 0px 8px 20px rgba(0,0,0,0.08);
+        --hero-overlay: rgba(0, 0, 0, 0.45);
+    }
+
+    body.dark-mode {
+        --bg: #111217;
+        --bg-alt: #181a21;
+        --text: #f4f4fa;
+        --text-muted: #a9a9c4;
+        --accent: #7ea4ff;
+        --accent-soft: #252a3b;
+        --border: #2a2d3a;
+        --card-shadow: 0px 8px 24px rgba(0,0,0,0.6);
+        --hero-overlay: rgba(0, 0, 0, 0.6);
+    }
+
+    /* ---------- GLOBAL RESET ---------- */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont,
+                     "Roboto", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+    }
+
+    a {
+        color: var(--accent);
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+        position: relative;
+        height: 55vh;
+        min-height: 360px;
+        max-height: 620px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #ffffff;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("sora-jesus-code-cover.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed; /* simple parallax on desktop */
+        z-index: -2;
+    }
+
+    @media (max-width: 768px) {
+        .hero::before {
+            background-attachment: scroll;
+        }
+    }
+
+    .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--hero-overlay);
+        z-index: -1;
+    }
+
+    .hero-inner {
+        padding: 0 20px;
+        max-width: 800px;
+        animation: fadeSlideDown 0.9s ease-out forwards;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    .hero-title {
+        font-size: clamp(2.2rem, 4vw, 3rem);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.05rem, 2vw, 1.2rem);
+        font-weight: 400;
+        margin-bottom: 18px;
+        color: #e4e7ff;
+    }
+
+    .hero-tagline {
+        font-size: 0.95rem;
+        color: #d6dbff;
+        max-width: 580px;
+        margin: 0 auto 24px;
+    }
+
+    .hero-cta {
+        display: inline-flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero-cta button {
+        border: none;
+        cursor: pointer;
+        border-radius: 999px;
+        padding: 10px 18px;
+        font-size: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 5px 18px rgba(0,0,0,0.25);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 9px 26px rgba(0,0,0,0.35);
+    }
+
+    .btn-ghost {
+        background: transparent;
+        color: #ffffff;
+        border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .btn-ghost:hover {
+        background: rgba(255,255,255,0.06);
+        transform: translateY(-1px);
+    }
+
+    /* ---------- HEADER / TITLE STRIP BELOW HERO ---------- */
+    header {
+        background: var(--bg-alt);
+        padding: 16px 20px;
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    header h2 {
+        font-size: 0.95rem;
+        font-weight: 400;
+        color: var(--text-muted);
+    }
+
+    /* ---------- NAVIGATION ---------- */
+    nav {
+        background: var(--bg-alt);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 900;
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        max-width: 1120px;
+        margin: 0 auto;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        font-size: 0.9rem;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+        padding-bottom: 4px;
+        border-bottom: 2px solid transparent;
+        transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-links a:hover {
+        color: var(--accent);
+        border-color: var(--accent-soft);
+    }
+
+    /* Hamburger menu */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 4px;
+    }
+
+    .hamburger div {
+        width: 23px;
+        height: 3px;
+        background: var(--text);
+        border-radius: 3px;
+    }
+
+    /* Dark mode toggle button */
+    .dark-toggle {
+        background: var(--accent-soft);
+        color: var(--text);
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        padding: 6px 14px;
+        font-size: 0.82rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .dark-toggle span {
+        font-size: 1.1rem;
+    }
+
+    @media (max-width: 900px) {
+        .nav-links {
+            position: absolute;
+            top: 52px;
+            left: 0;
+            background: var(--bg-alt);
+            width: 100%;
+            flex-direction: column;
+            display: none;
+            border-bottom: 1px solid var(--border);
+            padding: 6px 0 8px;
+        }
+
+        .nav-links a {
+            padding: 8px 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .hamburger {
+            display: flex;
+        }
+    }
+
+    /* ---------- MAIN ---------- */
+    main {
+        max-width: 1120px;
+        margin: 32px auto 60px;
+        padding: 0 20px;
+    }
+
+    /* ---------- CHAPTER CARDS ---------- */
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-bottom: 42px;
+    }
+
+    @media (max-width: 900px) {
+        .card-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 620px) {
+        .card-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .card {
+        background: var(--bg-alt);
+        border-radius: 14px;
+        padding: 16px 16px 18px;
+        border: 1px solid var(--border);
+        box-shadow: var(--card-shadow);
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+        border-color: var(--accent-soft);
+    }
+
+    .card h4 {
+        font-size: 0.98rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--accent);
+        margin-bottom: 4px;
+    }
+
+    .card h3 {
+        font-size: 1.05rem;
+        margin-bottom: 6px;
+    }
+
+    .card p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+
+    /* ---------- SECTIONS ---------- */
+    section {
+        margin-bottom: 56px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid var(--border);
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    section:last-of-type {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+    section h3 {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+        color: var(--accent);
+    }
+
+    section .section-kicker {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-muted);
+        margin-bottom: 8px;
+    }
+
+    section h4 {
+        font-size: 1.1rem;
+        margin-top: 18px;
+        margin-bottom: 6px;
+    }
+
+    section p {
+        margin-bottom: 12px;
+        font-size: 1rem;
+    }
+
+    .parable-title {
+        margin-top: 24px;
+        font-weight: 600;
+        font-size: 1.05rem;
+    }
+
+    .top-link {
+        display: inline-block;
+        margin-top: 16px;
+        text-decoration: none;
+        color: var(--accent);
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+
+    .top-link:hover {
+        text-decoration: underline;
+    }
+
+    /* ---------- FOOTER & MODAL ---------- */
+    footer {
+        border-top: 1px solid var(--border);
+        background: var(--bg-alt);
+        padding: 18px 20px;
+        margin-top: 40px;
+    }
+
+    .footer-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 8px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    .footer-inner a {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .modal-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal {
+        max-width: 540px;
+        width: 90%;
+        background: var(--bg-alt);
+        color: var(--text);
+        border-radius: 14px;
+        padding: 20px 22px 18px;
+        box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+        border: 1px solid var(--border);
+    }
+
+    .modal h3 {
+        font-size: 1.15rem;
+        margin-bottom: 8px;
+        color: var(--accent);
+    }
+
+    .modal p {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+
+    .modal button {
+        margin-top: 8px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--accent-soft);
+        padding: 6px 14px;
+        cursor: pointer;
+        font-size: 0.85rem;
+    }
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes fadeSlideUp {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeSlideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .visible {
+        animation: fadeSlideUp 0.7s ease forwards;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- HERO WITH SORA COVER ART BACKGROUND -->
+<div class="hero" id="top">
+    <div class="hero-inner">
+        <div class="hero-title">THE JESUS CODE</div>
+        <div class="hero-subtitle">Living the Way of Christ in Daily Life</div>
+        <p class="hero-tagline">
+            A practical, heart-level rule of life drawn from the 613 commandments of the Torah,
+            distilled through the teachings of Jesus into a way of living for today.
+        </p>
+        <div class="hero-cta">
+            <button class="btn-primary" onclick="document.getElementById('section1').scrollIntoView({behavior:'smooth'})">
+                Start Reading
+            </button>
+            <button class="btn-ghost" onclick="document.getElementById('chapters').scrollIntoView({behavior:'smooth'})">
+                Browse Sections
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- SUBHEADER TITLE STRIP -->
+<header>
+    <h1>The Jesus Code</h1>
+    <h2>Living the Way of Christ in Daily Life</h2>
+</header>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="nav-container">
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div><div></div><div></div>
+        </div>
+        <div class="nav-links">
+            <a href="#section1">I. God</a>
+            <a href="#section2">II. Relationships</a>
+            <a href="#section3">III. Family & Sexual Ethics</a>
+            <a href="#section4">IV. Inner Life</a>
+            <a href="#section5">V. Community</a>
+            <a href="#section6">VI. Work & Money</a>
+            <a href="#section7">VII. Speech</a>
+            <a href="#section8">VIII. Conduct</a>
+            <a href="#section9">IX. Commands of Christ</a>
+        </div>
+        <button class="dark-toggle" onclick="toggleDarkMode()">
+            <span>🌓</span> Theme
+        </button>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main>
+
+    <!-- CHAPTER CARDS -->
+    <section id="chapters" class="fade-on-scroll">
+        <div class="section-kicker">Overview</div>
+        <h3>Chapters at a Glance</h3>
+        <p style="margin-bottom:18px;">
+            Explore the nine movements of <em>The Jesus Code</em> — from love for God and neighbor,
+            to the inner life, community, and the unique commands of Christ at the center of the New Covenant.
+        </p>
+
+        <div class="card-grid">
+            <div class="card" onclick="document.getElementById('section1').scrollIntoView({behavior:'smooth'})">
+                <h4>I</h4>
+                <h3>Laws About God</h3>
+                <p>Who God is, how we love Him, trust Him, and center our lives on Him.</p>
+            </div>
+            <div class="card" onclick="document.getElementById('section2').scrollIntoView({behavior:'smooth'})">
+                <h4>II</h4>
+                <h3>Love & Human Relationships</h3>
+                <p>Learning to treat every person with dignity, justice, mercy, and love.</p>
+            </div>
+            <div class="card" onclick="document.getElementById('section3').scrollIntoView({behavior:'smooth'})">
+                <h4>III</h4>
+                <h3>Sexual & Family Ethics</h3>
+                <p>Faithfulness, covenant, and protecting the atmosphere of home.</p>
+            </div>
+            <div class="card" onclick="document.getElementById('section4').scrollIntoView({behavior:'smooth'})">
+                <h4>IV</h4>
+                <h3>Spiritual & Inner Life</h3>
+                <p>The quiet, hidden work of repentance, trust, and transformation.</p>
+            </div>
+            <div class="card" onclick="document.getElementById('section5').scrollIntoView({behavior:'smooth'})">
+                <h4>V</h4>
+                <h3>Community & Relationship</h3>
+                <p>What it means to be a family of grace, not just an institution.</p>
+            </div>
+            <div class="card" onclick="document.getElementById('section6').scrollIntoView({behavior:'smooth'})">
+                <h4>VI</h4>
+                <h3>Financial & Workplace Ethics</h3>
+                <p>Stewardship, integrity, and leadership in the ordinary workday.</p>
+            </div>
+            <div class="card" onclick="document.getElementById('section7').scrollIntoView({behavior:'smooth'})">
+                <h4>VII</h4>
+                <h3>Honesty & Speech</h3>
+                <p>How our words reveal our hearts and shape the world around us.</p>
+            </div>
+            <div class="card" onclick="document.getElementById('section8').scrollIntoView({behavior:'smooth'})">
+                <h4>VIII</h4>
+                <h3>General Moral Conduct</h3>
+                <p>The daily habits that quietly determine the trajectory of a life.</p>
+            </div>
+            <div class="card" onclick="document.getElementById('section9').scrollIntoView({behavior:'smooth'})">
+                <h4>IX</h4>
+                <h3>Unique Commands of Jesus</h3>
+                <p>The heart of the New Covenant and the way of Jesus Himself.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION I -->
+    <section id="section1" class="fade-on-scroll">
+        <div class="section-kicker">Section I</div>
+        <h3>Laws About God</h3>
+        <p>
+            These are the commands that shape the center of your life — who you trust, how you worship,
+            and what you orient your heart around. Jesus always began with the heart before the hands.
+        </p>
+
+        <h4>1. Believe in God</h4>
+        <p><strong>Practical meaning:</strong> Live your day as if God is genuinely present — in your decisions, fears, and hopes. Not as a distant idea, but as Someone walking beside you.</p>
+        <p><strong>Everyday application:</strong> Before reacting in frustration, you pause: “Lord, guide me.” You approach work not as chaos, but with the calm of someone who is not alone.</p>
+
+        <h4>2. Love God with all your heart, soul, mind, and strength</h4>
+        <p><strong>Practical meaning:</strong> Your love for God becomes the anchor that steadies every part of you.</p>
+        <p><strong>Everyday application:</strong> You carve out time with God the way you would with someone you love. Your decisions are shaped by, “What honors God?” Your work ethic, tone, and inner life all come under His influence.</p>
+
+        <h4>3. Have no other gods</h4>
+        <p><strong>Practical meaning:</strong> No idol gets to sit on the throne of your life — not money, not approval, not comfort.</p>
+        <p><strong>Everyday application:</strong> When you feel anxious, you turn to God, not endless scrolling or numbing. When faced with moral compromise at work, you choose integrity over gain.</p>
+
+        <h4>4. Honor God’s name</h4>
+        <p><strong>Practical meaning:</strong> Speak about God with sincerity. Don’t use spiritual language manipulatively.</p>
+        <p><strong>Everyday application:</strong> You avoid saying “God told me” to win arguments. You correct your tone when talking about God — reverent, not casual.</p>
+
+        <h4>5. Worship God alone</h4>
+        <p><strong>Practical meaning:</strong> Your ultimate loyalty belongs only to God.</p>
+        <p><strong>Everyday application:</strong> You prioritize worship — not just on Sundays, but with gratitude throughout the day. You avoid moral compromises that would make something else your master.</p>
+
+        <h4>6. Trust God fully</h4>
+        <p><strong>Practical meaning:</strong> Let God be the one you lean on in fear, not your own control.</p>
+        <p><strong>Everyday application:</strong> In uncertainty, you say, “God, I trust You with this outcome.” You choose patience instead of panic.</p>
+
+        <h4>7. Fear (revere) God above all</h4>
+        <p><strong>Practical meaning:</strong> Take God’s opinion more seriously than society’s judgment.</p>
+        <p><strong>Everyday application:</strong> You speak truth kindly even when unpopular. You choose obedience over people-pleasing.</p>
+
+        <h4>8. Cling to God</h4>
+        <p><strong>Practical meaning:</strong> Make God your first turn, not your last resort.</p>
+        <p><strong>Everyday application:</strong> Before calling a friend with a problem, you pray first. You reach for Scripture before you reach for coping habits.</p>
+
+        <h4>9. Teach God’s truth to your children</h4>
+        <p><strong>Practical meaning:</strong> You help your kids see God as real, loving, and trustworthy.</p>
+        <p><strong>Everyday application:</strong> Bedtime prayers, pointing out moments of God’s kindness during the day, and sharing simple stories of faith from your own life.</p>
+
+        <h4>10. Pray sincerely</h4>
+        <p><strong>Practical meaning:</strong> Prayer becomes honest, not formal — a conversation, not a performance.</p>
+        <p><strong>Everyday application:</strong> You talk to God in the car. You bring your real frustrations, not just your polite ones.</p>
+
+        <h4>11. Serve God with undivided loyalty</h4>
+        <p><strong>Practical meaning:</strong> Your relationship with God isn’t something you rent on weekends — it shapes every arena.</p>
+        <p><strong>Everyday application:</strong> Your integrity remains constant whether you're at church or at work. You don’t compartmentalize faith; it flows into business, marriage, parenting, and decisions.</p>
+
+        <h4>12. Reject occult practices</h4>
+        <p><strong>Practical meaning:</strong> You look to God alone for guidance and power — not spiritual shortcuts.</p>
+        <p><strong>Everyday application:</strong> You avoid horoscopes, tarot, manifestation magic, or energy rituals. You trust God’s voice, not the spiritual noise of culture.</p>
+
+        <p class="parable-title"><em>The Parable of the Two Lamps</em></p>
+        <p>
+            A man owned two lamps. One was tall, ornate, beautifully carved, and placed in the center of his home.
+            The other was small, simple, and sat in a corner.
+        </p>
+        <p>
+            Whenever guests visited, the man proudly lit the tall lamp. Its glow filled the room, and everyone praised its beauty.
+            But every night, when the house was empty and the darkness pressed in, he quietly lit the smaller lamp instead.
+            He trusted it more. It was the lamp he leaned on in fear, in loneliness, in worry. The tall lamp impressed others.
+            The little lamp sustained him.
+        </p>
+        <p>
+            One night, a wise traveler noticed this and asked,
+            “Why do you trust the small lamp in the night but honor the tall lamp in the day?”
+            The man was stunned. He realized the truth:
+        </p>
+        <p><strong>The lamp you trust in the dark is the lamp you truly worship.</strong></p>
+        <p>
+            Let God be the lamp you reach for — in all hours, in all rooms of your life.
+        </p>
+
+        <a class="top-link" href="#top">Back to Top</a>
+    </section>
+
+    <!-- SECTION II -->
+    <section id="section2" class="fade-on-scroll">
+        <div class="section-kicker">Section II</div>
+        <h3>Laws of Love & Human Relationships</h3>
+        <p>
+            This section takes the core of the 613 and distills them into relational wisdom.
+            Jesus took these laws and pushed them deeper — from external behavior into inner posture.
+        </p>
+
+        <h4>1. Love your neighbor as yourself</h4>
+        <p><strong>Practical meaning:</strong> Love becomes your default setting toward others — not suspicion, not irritation.</p>
+        <p><strong>Everyday application:</strong> You shift from “How is this person in my way?” to “How can I honor the image of God in them?” Small acts like a smile, a softened voice, and patience say, “Your dignity matters.”</p>
+
+        <h4>2. Treat others as you want to be treated</h4>
+        <p><strong>Practical meaning:</strong> Before you speak or act, you check: “Would I want this done to me?”</p>
+        <p><strong>Everyday application:</strong> In conflict, you ask, “If I were them, how would I want to be approached?” You correct your children the way you wish you had been corrected — firm, but full of grace.</p>
+
+        <h4>3. Do not murder (or nurse anger)</h4>
+        <p><strong>Practical meaning:</strong> Jesus said anger and contempt are the embryo of murder. You guard not just your hands but your heart.</p>
+        <p><strong>Everyday application:</strong> You refuse to speak with the goal of wounding. When frustrated, you breathe, pause, seek calm — not explosion. You don’t assassinate people with your words, sarcasm, or silence.</p>
+
+        <h4>4. Do not commit adultery (or lust)</h4>
+        <p><strong>Practical meaning:</strong> Faithfulness is more than physical. You protect your eyes, thoughts, and emotional boundaries.</p>
+        <p><strong>Everyday application:</strong> You avoid intimate conversations with people you shouldn’t be intimate with. Your emotional intimacy stays within your marriage. You set boundaries with screens, friendships, and fantasies.</p>
+
+      <h4>5. Do not steal</h4>
+        <p><strong>Practical meaning:</strong> Stealing goes beyond property — time, credit, trust, and loyalty.</p>
+        <p><strong>Everyday application:</strong> You give full effort at work. You don’t take office supplies home because “they won’t miss it.” You don’t steal attention by making everything about you.</p>
+
+        <h4>6. Do not lie</h4>
+        <p><strong>Practical meaning:</strong> Your integrity becomes a foundation people rely on.</p>
+        <p><strong>Everyday application:</strong> You tell the truth even when it’s inconvenient. You don’t exaggerate, shade, or spin. You don’t lie by silence or omission.</p>
+
+        <h4>7. Do not covet</h4>
+        <p><strong>Practical meaning:</strong> Comparison is poison; gratitude is antidote.</p>
+        <p><strong>Everyday application:</strong> You celebrate someone else’s promotion, home, or blessing. You don’t measure your worth by what others own.</p>
+
+        <h4>8. Honor your father and mother</h4>
+        <p><strong>Practical meaning:</strong> Respect, gratitude, and dignity — even with boundaries.</p>
+        <p><strong>Everyday application:</strong> You speak with respect, not contempt. You forgive their shortcomings. You set healthy limits without dishonor.</p>
+
+        <h4>9. Do not hate or hold grudges</h4>
+        <p><strong>Practical meaning:</strong> You refuse to let bitterness grow roots.</p>
+        <p><strong>Everyday application:</strong> You choose mercy over scorekeeping. When anger flares, you ask, “Lord, soften me.”</p>
+
+        <h4>10. Forgive others</h4>
+        <p><strong>Practical meaning:</strong> Forgiveness is not forgetting — it’s releasing the right to retaliate.</p>
+        <p><strong>Everyday application:</strong> You pray, “God, I release them to You.” You let God take the judge’s seat instead of you.</p>
+
+        <h4>11. Pursue peace</h4>
+        <p><strong>Practical meaning:</strong> Peace is something you make, not something you wait for.</p>
+        <p><strong>Everyday application:</strong> You choose calm responses when tensions rise. You apologize first. You don’t return insult for insult.</p>
+
+        <h4>12. Keep your word</h4>
+        <p><strong>Practical meaning:</strong> Your reputation becomes your signature.</p>
+        <p><strong>Everyday application:</strong> You follow through. You say no when needed so your yes means something. You’re reliable, steady, and trustworthy.</p>
+
+        <h4>13. Be humble</h4>
+        <p><strong>Practical meaning:</strong> Humility is not thinking less of yourself — it’s thinking of yourself less.</p>
+        <p><strong>Everyday application:</strong> You listen instead of planning the next thing to say. You give credit away quickly and receive it slowly. You admit when you’re wrong.</p>
+
+        <h4>14. Be fair; judge impartially</h4>
+        <p><strong>Practical meaning:</strong> Treat people with the same standard — not one for you and one for them.</p>
+        <p><strong>Everyday application:</strong> You judge behavior, not stereotypes. You refuse gossip-based conclusions.</p>
+
+        <h4>15. Defend the poor and vulnerable</h4>
+        <p><strong>Practical meaning:</strong> You use your strength to lift, not push down.</p>
+        <p><strong>Everyday application:</strong> You advocate for children. You step in when someone is bullied. You give voice to those who feel unheard.</p>
+
+        <h4>16. Treat outsiders with dignity</h4>
+        <p><strong>Practical meaning:</strong> Whoever feels like “other” gets the warmest welcome.</p>
+        <p><strong>Everyday application:</strong> You include the new person at work. You show kindness to those culturally different from you. You model hospitality.</p>
+
+        <h4>17. Return what isn’t yours</h4>
+        <p><strong>Practical meaning:</strong> Integrity is doing right when nobody is watching.</p>
+        <p><strong>Everyday application:</strong> You return extra change, misplaced items, or unearned benefits.</p>
+
+        <h4>18. Use honest measures (honesty in business)</h4>
+        <p><strong>Practical meaning:</strong> Your dealings are transparent — no hidden traps.</p>
+        <p><strong>Everyday application:</strong> You write contracts clearly. You don’t manipulate clients or followers. You don’t inflate your value or misrepresent services.</p>
+
+        <h4>19. Do not accept bribes or favoritism</h4>
+        <p><strong>Practical meaning:</strong> You cannot be bought — by money, pressure, or convenience.</p>
+        <p><strong>Everyday application:</strong> You correct your child even when you’re tired. You don’t bend rules for the powerful.</p>
+
+        <h4>20. Correct wrongdoing gently</h4>
+        <p><strong>Practical meaning:</strong> You confront with compassion, not condemnation.</p>
+        <p><strong>Everyday application:</strong> You address issues calmly, in private, with dignity.</p>
+
+        <h4>21. Do not gossip or slander</h4>
+        <p><strong>Practical meaning:</strong> You refuse to ruin someone’s reputation to entertain others.</p>
+        <p><strong>Everyday application:</strong> You don’t speak about people in ways you wouldn’t say to them. You stop gossip from continuing.</p>
+
+        <h4>22. Give generously to the poor</h4>
+        <p><strong>Practical meaning:</strong> You loosen your grip on your things because God loosened His grip on His Son.</p>
+        <p><strong>Everyday application:</strong> You budget generosity. You share meals, not just money.</p>
+
+        <h4>23. Lend without strings attached</h4>
+        <p><strong>Practical meaning:</strong> Help people without emotional debt-collection.</p>
+        <p><strong>Everyday application:</strong> You say: “Pay me back when you can — or don’t. I’m trusting God.”</p>
+
+      <h4>24. Show hospitality</h4>
+        <p><strong>Practical meaning:</strong> Your home becomes a place of warmth and welcome.</p>
+        <p><strong>Everyday application:</strong> You invite people who feel alone. You create a “come as you are” atmosphere.</p>
+
+        <h4>25. Meet practical needs</h4>
+        <p><strong>Practical meaning:</strong> Love is not just words — it’s action.</p>
+        <p><strong>Everyday application:</strong> You bring meals, offer rides, buy groceries, and check in on the lonely.</p>
+
+        <h4>26. Care for forgotten people</h4>
+        <p><strong>Practical meaning:</strong> Jesus gravitated to the overlooked — you do the same.</p>
+        <p><strong>Everyday application:</strong> You visit elderly relatives. You sit with the kid no one talks to.</p>
+
+        <h4>27. Give mercy freely</h4>
+        <p><strong>Practical meaning:</strong> You do not weaponize people’s mistakes.</p>
+        <p><strong>Everyday application:</strong> You correct without humiliating. You forgive without keeping score.</p>
+
+        <p class="parable-title"><em>The Parable of the Three Mirrors</em></p>
+        <p>
+            A merchant owned three mirrors. The first was made of polished silver. When customers looked into it,
+            they saw every flaw magnified. Wrinkles deeper. Blemishes darker. No one liked looking at themselves in it.
+        </p>
+        <p>
+            The second mirror was bronze. It smoothed every imperfection, but lied about reality. People left feeling good,
+            but unchanged.
+        </p>
+        <p>
+            The third mirror was simple glass — clear, honest, gentle. It revealed the truth but did not exaggerate it.
+            It showed every face as it was, but with soft light that invited people closer instead of pushing them away.
+        </p>
+        <p>
+            The merchant asked his apprentice, “Which mirror helps people grow?”
+            The apprentice answered, “The one that shows the truth without cruelty.”
+            The merchant replied, “Treat every person you meet as if they are looking into that third mirror.
+            See them clearly — but shine with gentleness.”
+        </p>
+        <p>
+            Let your heart be the clear mirror: see people truthfully, treat them gently, and they will discover the face God gave them.
+        </p>
+
+             <a class="top-link" href="#top">Back to Top</a>
+    </section>
+
+    <!-- SECTION III -->
+    <section id="section3" class="fade-on-scroll">
+        <div class="section-kicker">Section III</div>
+        <h3>Sexual & Family Ethics</h3>
+        <p>
+            This section takes the relational commandments from the Torah and applies them through Jesus’ lens:
+            faithfulness from the heart, not merely compliance with the rules.
+        </p>
+
+        <h4>1. Honor marriage as a sacred covenant</h4>
+        <p><strong>Practical meaning:</strong> You treat your marriage as something holy — not transactional, not conditional.</p>
+        <p><strong>Everyday application:</strong> Your spouse is not your competitor, but your covenant partner. You choose “us” over “me,” especially in conflict. You protect the emotional climate of your home.</p>
+
+        <h4>2. Remain faithful — physically, emotionally, digitally</h4>
+        <p><strong>Practical meaning:</strong> Faithfulness isn’t just about what you do with your body — it’s about what you give your heart to.</p>
+        <p><strong>Everyday application:</strong> You avoid flirting disguised as “just joking.” Your emotional intimacy stays within your marriage. You guard your online habits with vigilance.</p>
+
+        <h4>3. Reject sexual immorality</h4>
+        <p><strong>Practical meaning:</strong> You don’t treat sexual desire as entertainment or commerce — you treat it as a God-designed bond.</p>
+        <p><strong>Everyday application:</strong> You step away from situations that awaken temptation. You avoid media designed to erode purity. You choose connections that point you toward holiness, not away from it.</p>
+
+        <h4>4. Avoid incest or exploitation</h4>
+        <p><strong>Practical meaning:</strong> You maintain sacred boundaries and honor dignity, especially where there is vulnerability.</p>
+        <p><strong>Everyday application:</strong> You use your strength to protect, never to dominate. You create safe environments — at home, in relationships, in leadership.</p>
+
+        <h4>5. Do not lust — purity begins in the mind</h4>
+        <p><strong>Practical meaning:</strong> Jesus raised the bar: purity is not just “don’t do it,” but “don’t dwell on it.”</p>
+        <p><strong>Everyday application:</strong> You redirect your mind when it wanders toward fantasy. You discipline your eyes. You treat people as souls, not objects.</p>
+
+        <h4>6. Care for children — protect their innocence</h4>
+        <p><strong>Practical meaning:</strong> Children are not inconveniences; they are trust-assignments from God.</p>
+        <p><strong>Everyday application:</strong> You discipline with patience, not intimidation. You speak to your kids with the same gentleness you hope they’ll one day use with their children. You teach them boundaries, courage, and kindness.</p>
+
+        <h4>7. Honor family responsibilities</h4>
+        <p><strong>Practical meaning:</strong> Loving your family means carrying weight — not escaping it.</p>
+        <p><strong>Everyday application:</strong> You show up emotionally, not just physically. You make decisions that benefit your family’s long-term well-being, not just short-term comfort. You become someone your family can rely on.</p>
+
+        <h4>8. Cultivate a home where God is honored</h4>
+        <p><strong>Practical meaning:</strong> Your home becomes a place where God’s presence is welcomed and visible.</p>
+        <p><strong>Everyday application:</strong> You pray with your family — even simple, short prayers. You practice forgiveness quickly in front of your children. You fill the house with encouragement, not criticism.</p>
+
+        <p class="parable-title"><em>The Parable of the Two Walls</em></p>
+        <p>
+            A father owned a large field and decided to build a home on it for his family. Before he laid the foundation,
+            he built two walls.
+        </p>
+        <p>
+            The first wall was tall, strong, made of heavy stone. It kept out thieves, wild animals, and storms.
+            But it also cast a long shadow over the house, so dark that nothing near it could grow.
+        </p>
+        <p>
+            The second wall was shorter and made of warm clay bricks. It was not as imposing, but it was placed at the right distance,
+            letting sunlight reach every corner of the home. It still protected the family — but without choking the life inside.
+        </p>
+        <p>
+            Years passed. His children grew. They played in the sunny courtyard. Flowers bloomed. Laughter filled the evenings.
+        </p>
+        <p>
+            One day, a traveler asked him, “Why did you build two different walls?”
+            The father replied:
+        </p>
+        <p>
+            “The first wall would have protected my home, but killed the joy inside it.
+            The second wall protects my home, and lets joy grow.”
+        </p>
+        <p>
+            A family must have boundaries, but they must be placed with love, or the very walls meant to protect
+            will become the walls that suffocate. Guard your home with faithfulness, but fill it with light.
+            Let purity protect the joy, not overshadow it.
+        </p>
+
+           <a class="top-link" href="#top">Back to Top</a>
+    </section>
+
+    <!-- SECTION IV -->
+    <section id="section4" class="fade-on-scroll">
+        <div class="section-kicker">Section IV</div>
+        <h3>Spiritual & Inner-Life Commandments</h3>
+        <p>
+            Jesus didn’t just teach behavior — He taught being. He cared far more about the inner life than the external
+            performance. This section reflects His highest priorities.
+        </p>
+
+        <h4>1. Repent sincerely</h4>
+        <p><strong>Practical meaning:</strong> Repentance is not guilt on repeat — it’s course correction with honesty and humility.</p>
+        <p><strong>Everyday application:</strong> When you mess up, you don’t justify or minimize. You say, “Lord, change me,” and you take the next faithful step. You repair relationships quickly, without excuses.</p>
+
+        <h4>2. Be pure in heart</h4>
+        <p><strong>Practical meaning:</strong> Integrity means your private world matches your public one.</p>
+        <p><strong>Everyday application:</strong> You don’t nurture private sin. You remove habits that pull you toward darkness. Your motives increasingly align with love, not ego.</p>
+
+        <h4>3. Reject hypocrisy</h4>
+        <p><strong>Practical meaning:</strong> You resist the temptation to look spiritual instead of being transformed.</p>
+        <p><strong>Everyday application:</strong> You don’t use religious language to hide behind. You show the same character in private as you show at church. You practice honesty even when it’s humbling.</p>
+
+        <h4>4. Seek the Kingdom first</h4>
+        <p><strong>Practical meaning:</strong> God’s ways shape your ambitions, not the other way around.</p>
+        <p><strong>Everyday application:</strong> You make decisions through the lens: “Does this honor God?” You seek righteousness over recognition. You invite God into every major choice.</p>
+
+        <h4>5. Store up treasure in heaven</h4>
+        <p><strong>Practical meaning:</strong> Live for eternal value — relationships, character, love, generosity.</p>
+        <p><strong>Everyday application:</strong> You invest time into your kids, marriage, friendships. You give generously because heaven measures differently. You choose meaning over material accumulation.</p>
+
+        <h4>6. Practice secret generosity and prayer</h4>
+        <p><strong>Practical meaning:</strong> You and God share private moments of honesty that no one else sees.</p>
+        <p><strong>Everyday application:</strong> You pray in your car, in silence, in the shower — just you and God.
+            You give in ways that no one tracks or applauds.</p>
+
+        <h4>7. Bless those who harm you</h4>
+        <p><strong>Practical meaning:</strong> Respond to hostility with dignity, not retaliation.</p>
+        <p><strong>Everyday application:</strong> When insulted, you don’t fire back. You refuse to let bitterness anchor itself.
+            You pray for people who make your life difficult.</p>
+
+        <h4>8. Love your enemies</h4>
+        <p><strong>Practical meaning:</strong> You remain kind toward people who oppose you, reject you, or misunderstand you.</p>
+        <p><strong>Everyday application:</strong> You don’t demonize people you disagree with. You choose empathy over hostility.</p>
+
+        <h4>9. Pray for persecutors</h4>
+        <p><strong>Practical meaning:</strong> Prayer purifies resentment and breaks cycles of hurt.</p>
+        <p><strong>Everyday application:</strong> When someone harms you, your first step is prayer, not planning revenge.</p>
+
+        <h4>10. Do not worry; trust God</h4>
+        <p><strong>Practical meaning:</strong> Worry may knock, but you don’t let it move in.</p>
+        <p><strong>Everyday application:</strong> You say, “God, I place this in Your hands.” You stop catastrophizing and start trusting again. You focus on today, not imagined future disasters.</p>
+
+            <h4>11. Avoid hypocritical judgment</h4>
+        <p><strong>Practical meaning:</strong> You deal with your own flaws before pointing out others’.</p>
+        <p><strong>Everyday application:</strong> You ask, “What’s my part in this conflict?” You correct others gently, from humility.</p>
+
+        <h4>12. Be a peacemaker</h4>
+        <p><strong>Practical meaning:</strong> You build bridges where others build walls.</p>
+        <p><strong>Everyday application:</strong> You de-escalate arguments at home. You lead with calm rather than intensity. You show your kids what reconciliation looks like.</p>
+
+        <p class="parable-title"><em>The Parable of the Two Gardens</em></p>
+        <p>
+            A landowner had two gardens. Each morning he went out to water them.
+        </p>
+        <p>
+            The first garden was full of stone pots painted in gold. Every pot looked healthy on the outside,
+            but when he checked the soil inside, he found that most were dry, cracked, and hollow. The leaves that grew from
+            these pots looked green for a time but withered quickly under the sun.
+        </p>
+        <p>
+            The second garden had plain clay pots — no paint, no decoration, nothing impressive. But when he reached into the soil,
+            it was always moist and rich. The roots grew deep. The plants flourished even in harsh seasons.
+        </p>
+        <p>
+            One day, a visitor asked him why he kept the painted pots at all.
+            The landowner answered: “The painted pots remind me of the danger of living only for appearance.
+            They shine on the outside but starve on the inside.”
+        </p>
+        <p>
+            He touched a clay pot and said, “These pots are humble, but they hold water. They sustain life.
+            Their beauty begins from within and grows outward.”
+        </p>
+        <p>
+            Do not polish your life on the outside while your heart goes dry. Water the soil in secret.
+            Let God grow life from the inside out.
+        </p>
+
+        <a class="top-link" href="#top">Back to Top</a>
+    </section>
+
+    <!-- SECTION V -->
+    <section id="section5" class="fade-on-scroll">
+        <div class="section-kicker">Section V</div>
+        <h3>Community & Relational Conduct</h3>
+        <p>
+            Jesus didn’t build an institution; He built a family. And families thrive not by rules alone
+            but by the way they treat each other. This section captures the relational commands that define
+            a healthy Christian community — starting in your home and extending outward.
+        </p>
+
+        <h4>1. Seek unity</h4>
+        <p><strong>Practical meaning:</strong> Unity doesn’t mean sameness — it means choosing relationship over division.</p>
+        <p><strong>Everyday application:</strong> You refuse to divide over non-essentials. You don’t create cliques. You try to understand someone before trying to be understood.</p>
+
+        <h4>2. Serve one another in love</h4>
+        <p><strong>Practical meaning:</strong> The greatest in the Kingdom is the servant.</p>
+        <p><strong>Everyday application:</strong> You take initiative in kindness — dishes, chores, errands — without waiting to be asked. You look for ways to lighten someone else’s load.</p>
+
+        <h4>3. Submit to one another in humility</h4>
+        <p><strong>Practical meaning:</strong> Submission here means choosing cooperation over control.</p>
+        <p><strong>Everyday application:</strong> You listen before making a decision. You don’t insist on your way if someone else’s way also works. You stop competing for the “alpha seat” in conversations.</p>
+
+        <h4>4. Encourage and build one another up</h4>
+        <p><strong>Practical meaning:</strong> Your words are meant to be fertilizer, not poison.</p>
+        <p><strong>Everyday application:</strong> You compliment freely. You call out strengths in people. You text a friend who’s struggling just to say, “You’re not alone.”</p>
+
+           <h4>5. Confess sins to one another</h4>
+        <p><strong>Practical meaning:</strong> Confession doesn’t shame — it frees.</p>
+        <p><strong>Everyday application:</strong> You tell the truth about your struggles to a trusted believer.
+            You show your kids what it looks like to admit wrongs without fear. You model vulnerability without self-pity.</p>
+
+        <h4>6. Carry each other’s burdens</h4>
+        <p><strong>Practical meaning:</strong> You come alongside people when life gets heavy.</p>
+        <p><strong>Everyday application:</strong> You show up with food, presence, or help during someone’s tough season.
+            You let people lean on you without keeping score. You also let others carry your burdens — humility goes both ways.</p>
+
+        <h4>7. Resolve conflicts peacefully</h4>
+        <p><strong>Practical meaning:</strong> You don’t avoid conflict — you navigate it without creating casualties.</p>
+        <p><strong>Everyday application:</strong> You talk directly, not through triangulation. You clarify before assuming. You choose calm, not escalation.</p>
+
+        <h4>8. Honor the weak, the lowly, and the overlooked</h4>
+        <p><strong>Practical meaning:</strong> Greatness in the Kingdom is measured by how you treat those who can’t repay you.</p>
+        <p><strong>Everyday application:</strong> You slow down for people who move at a different pace.
+            You protect the dignity of the socially awkward, the shy, the anxious. You give your best kindness to those who feel invisible.</p>
+
+        <h4>9. Practice mutual forgiveness</h4>
+        <p><strong>Practical meaning:</strong> No relationship survives without forgiveness.</p>
+        <p><strong>Everyday application:</strong> You don’t weaponize someone’s past mistake. You apologize without excuses and forgive without conditions. You let healing be possible.</p>
+
+        <p class="parable-title"><em>The Parable of the Four Threads</em></p>
+        <p>
+            A master weaver wanted to create a tapestry for the entrance of the town.
+            He gave four threads to his four apprentices: one gold, one red, one blue, and one white.
+        </p>
+        <p>
+            He told them, “Bring these threads back tomorrow woven into something beautiful.”
+        </p>
+        <p>
+            The first apprentice returned with a golden rope — strong, shining, but rough to the touch.
+            It was thick and impressive, but too rigid to bend.
+        </p>
+        <p>
+            The second came with a red ribbon — dazzling but easily torn; it fell apart when handled.
+        </p>
+        <p>
+            The third brought a blue cord — carefully knotted, but so tightly wound that it twisted and tangled
+            every attempt to straighten it.
+        </p>
+        <p>
+            The fourth apprentice returned empty-handed. The master asked what happened.
+            He said, “I could not create something beautiful alone. So I asked each of the others to weave their thread with mine.
+            But each insisted on working alone, so I waited, hoping they would return.”
+        </p>
+        <p>
+            The master smiled sadly and said:
+            “No thread can become a tapestry by itself. Each must join with the others — strength, beauty, boldness, and softness woven together.
+            That is how harmony is made.”
+        </p>
+        <p>
+            Be woven together. Many colors, one cloth.
+        </p>
+
+         <a class="top-link" href="#top">Back to Top</a>
+    </section>
+
+    <!-- SECTION VI -->
+    <section id="section6" class="fade-on-scroll">
+        <div class="section-kicker">Section VI</div>
+        <h3>Financial & Workplace Ethics</h3>
+        <p>
+            Jesus talked about money more than almost any other topic — not because He cared about wealth itself,
+            but because money reveals the condition of the heart. This section captures how a follower of Jesus
+            treats resources, responsibility, and power.
+        </p>
+
+        <h4>1. Do not cheat, defraud, deceive, or manipulate</h4>
+        <p><strong>Practical meaning:</strong> Your work and business practices are transparent, honest, and above reproach.</p>
+        <p><strong>Everyday application:</strong> You don’t bend the truth to secure a deal. You don’t charge hidden fees or use deceptive phrasing.
+            You don’t exaggerate results or promise what you cannot deliver. You correct mistakes in your favor, even if nobody else knows.</p>
+
+        <h4>2. Pay workers fairly and promptly</h4>
+        <p><strong>Practical meaning:</strong> You honor the people who labor for you — with wages, dignity, and consistency.</p>
+        <p><strong>Everyday application:</strong> You don’t delay payment because it’s convenient for you.
+            You compensate fairly even if others in the industry don’t. You treat employees like image-bearers, not expenses.</p>
+
+        <h4>3. Be a faithful steward of what God gives you</h4>
+        <p><strong>Practical meaning:</strong> Everything you have is entrusted, not owned. You manage money with purpose.</p>
+        <p><strong>Everyday application:</strong> You budget, track, save, and give intentionally. You resist impulse spending that leads to bondage.
+            You ask, “Is this wise? Does this glorify God? Does it align with my calling?”</p>
+
+        <h4>4. Avoid greed, envy, and materialism</h4>
+        <p><strong>Practical meaning:</strong> You don’t measure your worth by what you own — and you don’t chase what others have.</p>
+        <p><strong>Everyday application:</strong> You don’t compare homes, salaries, vacations, or purchases. You practice gratitude daily.
+            You treat money as a tool, not a trophy.</p>
+
+        <h4>5. Give generously and joyfully</h4>
+        <p><strong>Practical meaning:</strong> Generosity is not about wealth levels — it’s about heart posture.</p>
+        <p><strong>Everyday application:</strong> You bless people privately, without expecting credit. You support causes, families, or individuals quietly.
+            You teach your children to give from what they receive.</p>
+
+        <h4>6. Work with excellence and integrity</h4>
+        <p><strong>Practical meaning:</strong> Your work becomes an offering to God, not merely a paycheck.</p>
+        <p><strong>Everyday application:</strong> You show up on time and do the job well. You avoid gossip, complaining, or cutting corners.
+            You lead with integrity, even when it costs you.</p>
+
+        <h4>7. Avoid exploiting others or leveraging power unjustly</h4>
+        <p><strong>Practical meaning:</strong> You use influence to lift, not leverage others.</p>
+        <p><strong>Everyday application:</strong> You don’t push people into decisions through pressure or intimidation.
+            You don’t take advantage of someone’s neediness or inexperience. You don’t make someone feel small so you can feel big.</p>
+
+        <p class="parable-title"><em>The Parable of the Two Ledgers</em></p>
+        <p>
+            A wealthy merchant kept two ledgers in his office.
+            The first ledger was immaculate — straight lines, perfect numbers, carefully calculated profits and losses.
+            Every page was crisp, polished, and balanced. Anyone who saw it admired the merchant’s order and discipline.
+        </p>
+        <p>
+            The second ledger, however, was tucked in a drawer. It was old, wrinkled, and messy.
+            It recorded something different: the day he underpaid a worker, the time he raised prices unfairly,
+            the moment he shaded truth to close a deal, the opportunities he ignored to be generous,
+            the times he treated people as tools instead of souls.
+        </p>
+        <p>
+            Nobody else ever saw that book — but the merchant did. It was the only ledger that made him uneasy.
+            One night he dreamed that both ledgers were placed before a king. The king never opened the book of profits.
+            Instead, He put His hand on the messy ledger and said,
+            “These numbers show not how well you traded, but how well you treated those I entrusted to you.”
+        </p>
+        <p>
+            In heaven, the first ledger is the heart. Profit fades. Character remains.
+        </p>
+
+        <a class="top-link" href="#top">Back to Top</a>
+    </section>
+
+    <!-- SECTION VII -->
+    <section id="section7" class="fade-on-scroll">
+        <div class="section-kicker">Section VII</div>
+        <h3>Honesty & Speech</h3>
+        <p>
+            Scripture teaches that life and death are in the power of the tongue.
+            Jesus teaches that our words reveal our heart. This section captures how a Christian
+            stewards speech as a force for truth, healing, and integrity.
+        </p>
+
+        <h4>1. Let your “yes” be yes and your “no” be no</h4>
+        <p><strong>Practical meaning:</strong> Your commitments matter — your words should be as reliable as a signed contract.</p>
+        <p><strong>Everyday application:</strong> You don’t cancel plans last-minute without necessity. You don’t overcommit to look good in the moment.
+            You say no when you need to, instead of saying yes and hoping to figure it out later. Your spouse, kids, clients,
+            and friends trust your word.</p>
+
+        <h4>2. Speak truth in love</h4>
+        <p><strong>Practical meaning:</strong> Truth without love wounds. Love without truth weakens. Jesus calls us to speak both at once.</p>
+        <p><strong>Everyday application:</strong> You address issues with clarity but not cruelty. You correct your children gently, without shaming.
+            You refuse to use “honesty” as a weapon.</p>
+
+        <h4>3. Avoid harsh, corrupt, or destructive speech</h4>
+        <p><strong>Practical meaning:</strong> Speech creates atmosphere — it can build a home of peace or a home of fear.</p>
+        <p><strong>Everyday application:</strong> You stop sarcasm when it wounds more than it jokes.
+            You avoid yelling unless a child is running toward danger. You don’t use contempt, mockery, or belittling tones.
+            You don’t hit people with your silence.</p>
+
+        <h4>4. Do not gossip or slander</h4>
+        <p><strong>Practical meaning:</strong> You don’t contaminate someone’s reputation behind their back.</p>
+        <p><strong>Everyday application:</strong> You refuse to pass along negative stories. You stop conversations that begin with,
+            “Did you hear about…?” You defend someone who’s being spoken of unfairly. You speak of people in ways you wouldn’t be ashamed for them to overhear.</p>
+
+        <h4>5. Use words to bless, heal, and encourage</h4>
+        <p><strong>Practical meaning:</strong> Your speech becomes a ministry — an ongoing act of gentle evangelism.</p>
+        <p><strong>Everyday application:</strong> You intentionally speak life into your spouse.
+            You call out strengths in your kids daily: “I love how hard you tried,” “I’m proud of you.”
+            You encourage coworkers or friends who seem discouraged. You speak faith, hope, and compassion.</p>
+
+        <h4>6. Be slow to speak, quick to listen</h4>
+        <p><strong>Practical meaning:</strong> Listening is love. Slowness of speech is wisdom.</p>
+        <p><strong>Everyday application:</strong> You don’t interrupt. You don’t jump to conclusions.
+            You let silence have a moment before responding. You hear what someone means, not just what they say.</p>
+
+        <p class="parable-title"><em>The Parable of the Two Wells</em></p>
+        <p>
+            A village had two wells. The first well stood in the busy marketplace.
+            Its stone rim was carved beautifully, and its water flowed quickly into any bucket lowered into it.
+            People filled their jars there because it was convenient. But though the water looked clear, it tasted bitter.
+            It left the mouth dry and the stomach unsettled. Yet because the well was attractive, people kept returning.
+        </p>
+        <p>
+            The second well sat outside the village under an old olive tree. Its stones were worn and ordinary. Its rope was frayed.
+            Drawing water from it took effort and patience — the bucket descended slowly, and rose even slower.
+            But its water was cool, sweet, and refreshing. Anyone who drank from it found strength for their journey.
+        </p>
+        <p>
+            One day a traveler asked the village elder, “Why do your people keep drinking from the bitter well when the better one waits outside the town?”
+            The elder answered: “Because the first well is easy to reach. The second requires patience.”
+        </p>
+        <p>
+            Let your tongue be the well beneath the olive tree — slow to speak, deep with grace, and refreshing to all who draw from it.
+        </p>
+
+        <a class="top-link" href="#top">Back to Top</a>
+    </section>
+
+    <!-- SECTION VIII -->
+    <section id="section8" class="fade-on-scroll">
+        <div class="section-kicker">Section VIII</div>
+        <h3>General Moral Conduct</h3>
+        <p>
+            These are the subtle commandments — the ones that don’t usually make headlines, but quietly determine the trajectory of a person’s life.
+            Jesus cared deeply about the “small” choices because they reveal who we are becoming.
+        </p>
+
+        <h4>1. Avoid drunkenness and self-destructive coping</h4>
+        <p><strong>Practical meaning:</strong> Anything that hijacks your clarity, your self-control, or your ability to love well is something Jesus calls you to step away from.</p>
+        <p><strong>Everyday application:</strong> You don’t drink to escape your life. You don’t let substances numb you from your responsibilities.
+            You choose coping methods that build, not break — prayer, exercise, conversation, rest.</p>
+
+        <h4>2. Pursue holiness in all conduct</h4>
+        <p><strong>Practical meaning:</strong> Holiness is not perfection — it’s direction. It means your habits consistently move you toward Christ, not away from Him.</p>
+        <p><strong>Everyday application:</strong> You open your Bible more than your vices. You step away from entertainment that corrodes your spirit.
+            You guard the atmosphere of your home. You choose honesty even when nobody will find out.</p>
+
+        <h4>3. Flee from evil; cling to what is good</h4>
+        <p><strong>Practical meaning:</strong> You don’t negotiate with temptation — you distance yourself from it.</p>
+        <p><strong>Everyday application:</strong> You unfollow accounts that stir unhealthy desires. You remove yourself from environments where darkness thrives.
+            You create boundaries that protect your peace and integrity.</p>
+
+        <h4>4. Resist the devil and draw near to God</h4>
+        <p><strong>Practical meaning:</strong> Spiritual warfare isn’t dramatic — it’s daily. It looks like choosing God’s way over the enemy’s voice one decision at a time.</p>
+        <p><strong>Everyday application:</strong> When shame whispers, you answer with truth. When temptation whispers, you run toward God instead of from Him.
+            When fear rises, you pray instead of spiraling.</p>
+
+        <h4>5. Practice self-control</h4>
+        <p><strong>Practical meaning:</strong> Self-control is spiritual maturity in motion — the ability to pause, redirect, and choose well.</p>
+        <p><strong>Everyday application:</strong> You take a breath before reacting. You speak after thinking. You choose long-term peace over short-term gratification.
+            You don’t let impulses run your life.</p>
+
+        <h4>6. Choose gratitude over negativity</h4>
+        <p><strong>Practical meaning:</strong> Gratitude protects you from cynicism, envy, and chronic dissatisfaction.</p>
+        <p><strong>Everyday application:</strong> You thank God for the small things. You name blessings out loud to your family.
+            You keep perspective when inconveniences arise.</p>
+
+        <h4>7. Walk in integrity even when unobserved</h4>
+        <p><strong>Practical meaning:</strong> True integrity is what you do when nobody sees.</p>
+        <p><strong>Everyday application:</strong> You close tabs you shouldn’t be on. You treat customer service workers with respect.
+            You return the shopping cart instead of leaving it. You follow through on quiet commitments.</p>
+
+        <p class="parable-title"><em>The Parable of the Hidden Roots</em></p>
+        <p>
+            A farmer owned two trees planted side-by-side.
+            The first tree grew quickly — tall, impressive, covered in leaves. Visitors admired it.
+            They said, “What a strong, beautiful tree!” But its roots were shallow. They stayed near the surface, never digging deep.
+        </p>
+        <p>
+            The second tree grew slowly. Its branches were modest. Its leaves were few. But its roots sank deep —
+            deeper than the farmer expected — stretching toward hidden streams underground.
+        </p>
+        <p>
+            One summer, a fierce storm blew through the valley. The wind howled. Rain hammered the ground. Lightning cracked the sky.
+            In the morning, the farmer saw that the tall, beautiful tree lay on its side — uprooted, its shallow roots exposed.
+            But the modest tree remained — steady, grounded, unmoved.
+        </p>
+        <p>
+            Strength is not built in the branches, but in the roots you grow in secret. Let your hidden life with God be deep.
+            Then you will stand when storms come.
+        </p>
+
+         <a class="top-link" href="#top">Back to Top</a>
+    </section>
+
+    <!-- SECTION IX -->
+    <section id="section9" class="fade-on-scroll">
+        <div class="section-kicker">Section IX</div>
+        <h3>Unique Commands of Jesus</h3>
+        <p>
+            These are not add-ons. They are the axis around which the entire New Covenant turns.
+            Everything He expects from His followers flows from these teachings.
+        </p>
+
+        <h4>1. Take up your cross and follow Him</h4>
+        <p><strong>Practical meaning:</strong> Choosing obedience over comfort, faithfulness over popularity, and surrender over self-rule.</p>
+        <p><strong>Everyday application:</strong> You do what’s right even when it costs you approval. You humble yourself in conflict instead of powering up.
+            You stay faithful in hard seasons instead of quitting spiritually.</p>
+
+        <h4>2. Love one another as Jesus loved you</h4>
+        <p><strong>Practical meaning:</strong> Jesus didn’t tell us to love others “as we love ourselves,” but as He loved us — sacrificially, generously, relentlessly.</p>
+        <p><strong>Everyday application:</strong> You go first in kindness, forgiveness, and apology. You protect people’s dignity even when they fail.
+            You put someone else’s good above your comfort.</p>
+
+        <h4>3. Make disciples of all nations</h4>
+        <p><strong>Practical meaning:</strong> Helping other people follow Jesus — not through pressure, but through presence, example, and conversation.</p>
+        <p><strong>Everyday application:</strong> You teach your kids how to pray, think, and choose wisely. You encourage friends toward faith, hope, and Scripture.
+            You model Christlike behavior at work and at home.</p>
+
+        <h4>4. Forgive without limit (“seventy times seven”)</h4>
+        <p><strong>Practical meaning:</strong> Forgiveness isn’t occasional — it’s a posture you live from.</p>
+        <p><strong>Everyday application:</strong> You forgive even when the apology is small.
+            You release people to God instead of carrying bitterness. You protect your heart from resentment’s corrosion.</p>
+
+        <h4>5. Observe communion in remembrance of Him</h4>
+        <p><strong>Practical meaning:</strong> You regularly remember His sacrifice — His body, His blood, His gift of life.</p>
+        <p><strong>Everyday application:</strong> Communion becomes an anchor, helping you realign your heart.
+            It teaches humility: “I needed saving, and He saved me.” It teaches worship: “I give my life because He gave His.”</p>
+
+        <h4>6. Be born of the Spirit and walk in the Spirit</h4>
+        <p><strong>Practical meaning:</strong> Your life becomes led by the Holy Spirit — not impulse, habit, or emotion alone.</p>
+        <p><strong>Everyday application:</strong> You ask the Spirit for guidance throughout the day.
+            You obey nudges toward kindness, reconciliation, or holiness. You resist the old patterns and walk in renewed ones.</p>
+
+        <h4>7. Bear the fruit of the Spirit</h4>
+        <p><strong>Practical meaning:</strong> Your character gradually reflects Jesus Himself: love, joy, peace, patience,
+            kindness, goodness, faithfulness, gentleness, self-control.</p>
+        <p><strong>Everyday application:</strong> You pause instead of snapping. You choose patience with your kids.
+            You keep calm when others create chaos. You respond gently even when irritated.</p>
+
+        <p class="parable-title"><em>The Parable of the Lighthouse Keeper</em></p>
+        <p>
+            A lighthouse keeper lived on a rocky coastline where storms came often.
+            His only job was to keep the lamp burning through the night and the glass windows clean enough for the light to shine through.
+        </p>
+        <p>
+            The lamp was fueled by oil, stored in a small clay jar. Each evening he filled the lamp carefully,
+            and each morning he wiped away the soot that gathered overnight.
+        </p>
+
+       <p>
+            One night a violent storm struck — the kind that tossed whole ships like toys.
+            Winds howled, waves rose, darkness swallowed the shore.
+            The lighthouse keeper climbed the tower and lit the lamp as usual.
+        </p>
+        <p>
+            But halfway through the night, the clay jar cracked. Oil leaked. The flame began to sputter.
+            Panicked, the keeper grabbed whatever he could find — water, sand, scraps of cloth —
+            but nothing could replace the oil. The flame dimmed until only embers glowed.
+        </p>
+        <p>
+            A ship in the distance saw the fading light and crashed against the rocks.
+            In the morning, broken and grieving, the lighthouse keeper fell at the feet of the Captain of the harbor.
+            Through tears he said, “I had many tasks, but only one mission — and I failed the one.”
+        </p>
+        <p>
+            The Captain replied: “The lamp is your love. The oil is My Spirit. The glass is your life.
+            Keep the flame burning, keep the jar full, keep the window clean. Then all who lose their way will find their path through you.”
+        </p>
+        <p>
+            Above all things, keep the lamp of love burning. His Spirit fuels it. Your life reflects it.
+            And the world needs its light.
+        </p>
+
+        <a class="top-link" href="#top">Back to Top</a>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div>© 2025 Domingos Santos Jr. &amp; Amber (OpenAI)</div>
+        <div><a onclick="openModal()">About this collaboration</a></div>
+    </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="aboutModal">
+    <div class="modal">
+        <h3>The Jesus Code – Creation Notes</h3>
+        <p>
+            <strong>Author:</strong> Domingos Santos Jr. (Dom), in dialogue with “Amber,” an AI assistant created by OpenAI.
+        </p>
+        <p>
+            This work began as a simple question: how would Jesus relate to the 613 commandments of the Torah?
+            From there, Dom and Amber worked section by section to:
+        </p>
+        <p>
+            – Distill the 613 into a New Covenant rule of life centered on Jesus’ teaching.<br>
+            – Group the commands into nine major movements (God, relationships, family, inner life, community, work & money,
+            speech, general conduct, and the unique commands of Christ).<br>
+            – Expand each movement with practical, everyday examples and short parables written in a Jesus-style narrative voice.<br>
+            – Design this page as a clean, mobile-responsive digital reading experience titled
+            <em>The Jesus Code: Living the Way of Christ in Daily Life</em>.
+        </p>
+        <p>
+            The heart of the project is simple: help modern disciples translate ancient commandments into lived,
+            daily faithfulness under Jesus — not as a list of rules to impress God, but as a way of walking with Him.
+        </p>
+        <button onclick="closeModal()">Close</button>
+    </div>
+</div>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('.nav-links');
+        const style = window.getComputedStyle(nav);
+        if (style.display === 'none') {
+            nav.style.display = 'flex';
+        } else {
+            nav.style.display = 'none';
+        }
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+
+    function openModal() {
+        document.getElementById('aboutModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('aboutModal').style.display = 'none';
+    }
+
+    // Fade-in on scroll with IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-on-scroll, section.fade-on-scroll, .card').forEach(el => {
+        observer.observe(el);
+    });
+</script>
+
+</body>
+</html>
